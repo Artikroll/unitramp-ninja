@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ниндзя-парк под ключ</title>
+<meta name="description" content="Ниндзя-парки и полосы препятствий под ключ от производителя: модульные рамы, препятствия для детей и взрослых, проект, производство, монтаж и запуск.">
+<meta name="theme-color" content="#0D0D0F">
+<link rel="icon" href="assets/img/logo.svg">
+<style>
+@font-face{font-family:"Oswald";src:url(assets/fonts/Oswald.ttf) format("truetype");font-weight:200 700;font-display:swap}
+@font-face{font-family:"Golos";src:url(assets/fonts/GolosText-400.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Golos";src:url(assets/fonts/GolosText-500.ttf) format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"Golos";src:url(assets/fonts/GolosText-600.ttf) format("truetype");font-weight:600;font-display:swap}
+:root{
+  --bg:#0D0D0F; --bg-2:#16161A; --bg-3:#1F1F25; --line:rgba(255,255,255,.1); --line-2:rgba(255,255,255,.2);
+  --tx:#F4F4F5; --tx-2:#A6A6AE; --tx-3:#6E6E78;
+  --red:#E5262B; --red-2:#C41D22; --red-soft:rgba(229,38,43,.14);
+  --gap:#B7791F;
+  --ease:cubic-bezier(.2,.7,.2,1); --out:cubic-bezier(.16,1,.3,1);
+  --pad:64px; --max:1312px; --sec:120px;
+  --h:"Oswald","Arial Narrow",sans-serif; --b:"Golos",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--tx);font:400 18px/1.55 var(--b);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.wrap{max-width:calc(var(--max) + var(--pad)*2);margin:0 auto;padding:0 var(--pad)}
+.sec{padding:var(--sec) 0;position:relative}
+h1,h2,h3{font-family:var(--h);font-weight:700;text-transform:uppercase;letter-spacing:-.005em;line-height:.98}
+h2{font-size:clamp(40px,5.6vw,84px)}
+h3{font-size:26px;line-height:1.05;letter-spacing:.005em}
+.kick{display:inline-flex;align-items:center;gap:12px;font:600 13px/1 var(--b);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-2)}
+.kick b{display:inline-grid;place-items:center;min-width:34px;height:22px;padding:0 6px;background:var(--red);color:#fff;font:700 13px/1 var(--h);letter-spacing:.04em;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.lead{font-size:20px;line-height:1.55;color:var(--tx-2);max-width:34em}
+.head{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:end;margin-bottom:64px}
+.head h2{margin-top:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:60px;padding:0 32px;border:0;cursor:pointer;font:600 15px/1 var(--b);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);transition:background .2s,transform .2s var(--ease)}
+.btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.98)}
+.btn-r{background:var(--red);color:#fff}.btn-r:hover{background:var(--red-2)}
+.btn-w{background:#fff;color:var(--bg)}
+.btn-o{background:var(--bg-3);color:#fff}.btn-o:hover{background:#2a2a32}
+.btn .arr{width:18px;height:18px;transition:transform .25s var(--ease)}.btn:hover .arr{transform:translateX(4px)}
+.gap{display:inline;background:rgba(255,212,120,.12);color:#FFD88A;border:1px dashed rgba(255,212,120,.5);border-radius:4px;padding:1px 6px;font:500 .78em/1.45 var(--b);letter-spacing:0;text-transform:none;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.onl .gap{background:#FFF4D6;color:#7A4E0E;border-color:var(--gap)}
+.gap::before{content:"нужны данные · ";font-weight:600}
+.gap.ok::before{content:"подтвердить · "}
+body.clean .gap{display:none}
+.gaps-toggle{position:fixed;left:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;background:#FFF4D6;color:#7A4E0E;border:1px dashed var(--gap);font:600 13px/1 var(--b);cursor:pointer;transition:opacity .3s,transform .3s}
+.gaps-toggle b{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:11px;background:var(--gap);color:#fff;font-size:12px;padding:0 6px}
+body.clean .gaps-toggle{background:var(--bg-2);color:var(--tx-2);border:1px solid var(--line)}
+body.at-top .gaps-toggle{opacity:0;transform:translateY(12px);pointer-events:none}
+
+/* header */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--red);z-index:80}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:70;transition:background .3s}
+.hdr.solid{background:rgba(13,13,15,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:36px;height:72px}
+.hdr .logo img{width:136px}
+.hdr nav{display:flex;gap:28px;margin-left:auto;font:500 14px/1 var(--b);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-2)}
+.hdr nav a{transition:color .2s}.hdr nav a:hover{color:#fff}
+.hdr .btn{height:44px;padding:0 22px;font-size:13px}
+.burger{display:none;margin-left:auto;width:44px;height:44px;border:0;background:none;cursor:pointer;position:relative}
+.burger span{position:absolute;left:11px;right:11px;height:2px;background:#fff;transition:transform .3s var(--ease)}
+.burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:26px}
+body.menu-open .burger span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+body.menu-open .burger span:nth-child(2){transform:translateY(-5px) rotate(-45deg)}
+.mmenu{position:fixed;inset:0;z-index:65;background:var(--bg);padding:96px 16px 32px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+body.menu-open .mmenu{opacity:1;visibility:visible}
+.mmenu a:not(.btn){font:700 40px/1.25 var(--h);text-transform:uppercase;padding:8px 0;border-bottom:1px solid var(--line)}
+.mmenu .btn{margin-top:auto}
+
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;filter:grayscale(.35) contrast(1.08) brightness(.7);transform:scale(1.08);transition:transform 2.4s var(--out)}
+.loaded .hero-bg img{transform:none}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,15,.55) 0%,rgba(13,13,15,.15) 35%,rgba(13,13,15,.75) 72%,var(--bg) 100%),linear-gradient(90deg,rgba(13,13,15,.7),rgba(13,13,15,0) 60%)}
+.hero .wrap{position:relative;padding-top:140px;padding-bottom:48px;width:100%}
+.hero .kick{color:#fff}
+.hero h1{font-size:clamp(64px,11vw,184px);line-height:.86;margin-top:24px;letter-spacing:-.01em}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:block;transform:translateY(102%);transition:transform 1s var(--out)}
+.loaded .hero h1 .ln>span{transform:none}
+.hero h1 .ln:nth-child(2)>span{transition-delay:.08s;color:var(--red)}
+.hero-row{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;margin-top:36px}
+.hero .sub{font-size:20px;color:#D9D9DE;max-width:32em}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero [data-in]{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease) .35s,transform .9s var(--out) .35s}
+.loaded .hero [data-in]{opacity:1;transform:none}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--line-2)}
+.hstats div{padding:22px 20px 0 0}
+.hstats div+div{padding-left:20px;border-left:1px solid var(--line)}
+.hstats b{display:block;font:700 48px/1 var(--h);font-variant-numeric:tabular-nums}
+.hstats b i{font-style:normal;color:var(--red)}
+.hstats span{display:block;font-size:14px;color:var(--tx-2);margin-top:8px;line-height:1.4}
+
+/* reveal */
+[data-r]{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .8s var(--out)}
+[data-r].in{opacity:1;transform:none}
+
+/* who */
+.who{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line)}
+.who-c{background:var(--bg);padding:32px 28px 36px;position:relative;transition:background .3s}
+.who-c:hover{background:var(--bg-2)}
+.who-c .n{font:700 64px/1 var(--h);color:transparent;-webkit-text-stroke:1px var(--line-2);margin-bottom:28px;transition:-webkit-text-stroke-color .3s}
+.who-c:hover .n{-webkit-text-stroke-color:var(--red)}
+.who-c h3{font-size:24px}
+.who-c p{font-size:15px;color:var(--tx-2);margin-top:12px;line-height:1.5}
+.who-c .ex{display:block;margin-top:16px;font-size:13px;color:var(--red);font-weight:600}
+
+/* system */
+.sys{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.sys-list{display:grid;gap:0;margin-top:36px;border-top:1px solid var(--line)}
+.sys-list>div{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.sys-list b{font:700 22px/1 var(--h);color:var(--red)}
+.sys-list h4{font:700 20px/1.2 var(--h);text-transform:uppercase;letter-spacing:.01em}
+.sys-list p{font-size:15px;color:var(--tx-2);margin-top:6px}
+.rig{position:relative;aspect-ratio:1.25/1;background:var(--bg-2);border:1px solid var(--line);overflow:hidden}
+.rig svg{position:absolute;inset:0;width:100%;height:100%}
+.rig .fr{stroke:#fff;stroke-width:3;fill:none;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2s var(--out)}
+.rig.in .fr{stroke-dashoffset:0}
+.rig .ob{opacity:0;transform:translateY(-14px);transition:opacity .5s,transform .6s var(--out)}
+.rig.in .ob{opacity:1;transform:none}
+.rig .mat{fill:var(--red-soft);stroke:var(--red);stroke-width:1.5;opacity:0;transition:opacity .8s 1.6s}
+.rig.in .mat{opacity:1}
+.rig .lbl{font:600 12px var(--b);fill:var(--tx-2);letter-spacing:.06em;text-transform:uppercase}
+.rig .cap{position:absolute;left:16px;bottom:14px;font-size:12px;color:var(--tx-3);letter-spacing:.06em;text-transform:uppercase}
+
+/* builder */
+.bld{background:var(--bg-2)}
+.b-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:24px;align-items:start}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filters button{height:40px;padding:0 16px;border:1px solid var(--line-2);background:transparent;cursor:pointer;font:600 13px/1 var(--b);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-2);transition:all .2s}
+.filters button.on{background:#fff;color:var(--bg);border-color:#fff}
+.obs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.o{background:var(--bg);border:1px solid var(--line);padding:18px;cursor:pointer;text-align:left;display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;transition:border-color .2s,background .2s,opacity .3s}
+.o:hover{border-color:var(--line-2)}
+.o .ic{width:44px;height:44px;background:var(--bg-3);display:grid;place-items:center;transition:background .2s}
+.o .ic svg{width:24px;height:24px}
+.o h4{font:700 18px/1.15 var(--h);text-transform:uppercase;letter-spacing:.01em}
+.o .m{font-size:12px;color:var(--tx-3);margin-top:4px;letter-spacing:.04em}
+.o .lv{display:flex;gap:3px}
+.o .lv i{width:6px;height:18px;background:var(--bg-3)}
+.o .lv i.f{background:var(--red)}
+.o .add{width:32px;height:32px;border:1px solid var(--line-2);display:grid;place-items:center;font:700 18px/1 var(--b);transition:all .2s}
+.o.on{border-color:var(--red);background:#1a1012}
+.o.on .ic{background:var(--red)}
+.o.on .add{background:var(--red);border-color:var(--red)}
+.o.hide{display:none}
+.track{position:sticky;top:90px;background:var(--bg);border:1px solid var(--line);padding:28px}
+.track .tl{font:600 12px/1 var(--b);letter-spacing:.14em;text-transform:uppercase;color:var(--tx-2)}
+.track .big{font:700 88px/1 var(--h);margin:10px 0 2px;font-variant-numeric:tabular-nums}
+.track .big small{font-size:.3em;color:var(--tx-2);letter-spacing:.06em}
+.prof{height:120px;margin:18px 0 8px;position:relative;border-bottom:1px solid var(--line-2)}
+.prof svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.prof path{fill:none;stroke:var(--red);stroke-width:3;stroke-linejoin:round;transition:d .5s var(--out)}
+.prof .area{fill:url(#rg);stroke:none}
+.prof .pt{fill:#fff}
+.prof-l{display:flex;justify-content:space-between;font-size:11px;color:var(--tx-3);letter-spacing:.1em;text-transform:uppercase}
+.seq{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0;min-height:32px}
+.seq span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;background:var(--bg-3);font-size:13px;animation:pop .35s var(--out) both}
+.seq span b{font:700 12px/1 var(--h);color:var(--red)}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+.skills{display:grid;gap:8px;margin:6px 0 18px}
+.skills div{display:grid;grid-template-columns:96px 1fr 20px;gap:10px;align-items:center;font-size:13px;color:var(--tx-2)}
+.skills .bar{height:6px;background:var(--bg-3)}
+.skills .bar i{display:block;height:100%;width:0;background:#fff;transition:width .5s var(--out)}
+.track .lvl{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);font-size:15px}
+.track .lvl b{font:700 18px/1 var(--h);text-transform:uppercase;letter-spacing:.03em}
+.timer{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);cursor:pointer;font-size:15px}
+.timer input{position:absolute;opacity:0}
+.timer .sw{width:44px;height:24px;border-radius:12px;background:var(--bg-3);position:relative;transition:background .2s;flex:none}
+.timer .sw::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.timer input:checked+.sw{background:var(--red)}
+.timer input:checked+.sw::after{transform:translateX(20px)}
+.track .btn{width:100%;margin-top:12px}
+
+/* uses */
+.uses{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch}
+.uses-ph{position:relative;overflow:hidden;min-height:520px;clip-path:polygon(0 0,100% 0,100% calc(100% - 40px),calc(100% - 40px) 100%,0 100%)}
+.uses-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.uses-ph span{position:absolute;left:18px;bottom:16px;font-size:13px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.uses-list{display:grid;gap:2px;background:var(--line)}
+.uses-list>div{background:var(--bg);padding:22px 26px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;transition:background .25s}
+.uses-list>div:hover{background:var(--bg-2)}
+.uses-list h4{font:700 22px/1.1 var(--h);text-transform:uppercase}
+.uses-list p{font-size:14px;color:var(--tx-2);margin-top:6px}
+.uses-list em{font-style:normal;font:700 14px/1 var(--h);color:var(--red);letter-spacing:.06em}
+
+/* cases */
+.cs{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.c{grid-column:span 4;background:var(--bg-2);display:flex;flex-direction:column;transition:transform .3s var(--ease)}
+.c:hover{transform:translateY(-4px)}
+.c.big{grid-column:span 8;grid-row:span 2}
+.c .im{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-3)}
+.c.big .im{aspect-ratio:auto;flex:1;min-height:380px}
+.c .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--out)}
+.c:hover .im img{transform:scale(1.05)}
+.c .tg{position:absolute;left:0;top:16px;background:var(--red);color:#fff;font:700 13px/1 var(--h);letter-spacing:.08em;text-transform:uppercase;padding:8px 14px 8px 16px}
+.c .bd{padding:22px 24px 26px}
+.c h3{font-size:28px}
+.c.big h3{font-size:40px}
+.c .where{font-size:14px;color:var(--tx-2);margin-top:6px;letter-spacing:.04em}
+.c .nums{display:flex;gap:24px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.c .nums b{display:block;font:700 26px/1 var(--h)}
+.c .nums span{font-size:12px;color:var(--tx-3);letter-spacing:.06em;text-transform:uppercase}
+.c p{font-size:14px;color:var(--tx-2);margin-top:14px;line-height:1.5}
+.c.noimg .im{display:none}
+.c.noimg{justify-content:flex-end;border-top:3px solid var(--red)}
+
+/* room */
+.room{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
+.rm{background:var(--bg);padding:36px 32px}
+.rm b{display:block;font:700 72px/1 var(--h);color:#fff}
+.rm b small{font-size:.4em;color:var(--red)}
+.rm h4{font:700 20px/1.2 var(--h);text-transform:uppercase;margin-top:14px}
+.rm p{font-size:15px;color:var(--tx-2);margin-top:8px}
+
+/* make */
+.mk{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.mk-ph{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
+.mk-ph figure{position:relative;overflow:hidden}
+.mk-ph figure:first-child{grid-row:span 2;min-height:480px}
+.mk-ph figure:not(:first-child){aspect-ratio:1}
+.mk-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mk-ph figcaption{position:absolute;left:12px;bottom:10px;font-size:12px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.mk-list{margin-top:32px;display:grid;gap:14px}
+.mk-list div{display:grid;grid-template-columns:28px 1fr;gap:12px;font-size:16px;color:var(--tx-2)}
+.mk-list div::before{content:"";width:14px;height:14px;background:var(--red);margin-top:6px;clip-path:polygon(0 0,100% 50%,0 100%)}
+.mk-list b{color:#fff;font-weight:600}
+
+/* steps */
+.st{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);counter-reset:s}
+.s{background:var(--bg-2);padding:28px 26px 32px;position:relative}
+.s .n{font:700 15px/1 var(--h);color:var(--red);letter-spacing:.1em}
+.s h4{font:700 24px/1.1 var(--h);text-transform:uppercase;margin:16px 0 10px}
+.s p{font-size:15px;color:var(--tx-2)}
+.s .t{display:inline-block;margin-top:16px;font:700 13px/1 var(--h);letter-spacing:.06em;background:#fff;color:var(--bg);padding:7px 10px}
+
+/* faq + form */
+.qa{border-bottom:1px solid var(--line)}
+.qa:first-child{border-top:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font:700 22px/1.2 var(--h);text-transform:uppercase;letter-spacing:.01em}
+.qa summary::-webkit-details-marker{display:none}
+.qa .pm{flex:none;width:34px;height:34px;background:var(--bg-3);position:relative;transition:background .3s}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:#fff;transform:translate(-50%,-50%);transition:transform .35s var(--ease)}
+.qa .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa[open] .pm{background:var(--red)}
+.qa[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.qa .a{overflow:hidden}
+.qa .a p{padding:0 56px 22px 0;color:var(--tx-2);font-size:17px}
+.faq{display:grid;grid-template-columns:1fr 1.6fr;gap:48px}
+.cta{display:grid;grid-template-columns:1fr 1.1fr;gap:56px}
+form.lf{background:#fff;color:#111;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%)}
+.f{display:flex;flex-direction:column;gap:7px;grid-column:span 2}
+.f.h{grid-column:span 1}
+.f label,.f .lb{font-size:12px;font-weight:600;color:#555;letter-spacing:.08em;text-transform:uppercase}
+.f input,.f select{height:54px;border:1.5px solid #ddd;background:#f4f4f5;padding:0 16px;font-size:17px;outline:0;width:100%;border-radius:0;appearance:none;-webkit-appearance:none;transition:border-color .2s}
+.f select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23111' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.f input:focus,.f select:focus{border-color:var(--red);background:#fff}
+.picked{grid-column:span 2;background:#FDECEC;color:var(--red-2);padding:12px 14px;font-size:14px;display:none}
+.picked.on{display:block}
+form.lf .btn{grid-column:span 2;height:60px;margin-top:6px}
+form.lf .fine{grid-column:span 2;font-size:13px;color:#777}
+.sent{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px;padding:40px;opacity:0;pointer-events:none;transition:opacity .4s}
+form.done .sent{opacity:1;pointer-events:auto}
+.sent .ok{width:60px;height:60px;background:var(--red);display:grid;place-items:center}
+.sent h3{font-size:34px}
+.contacts{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.contacts a{display:inline-flex;align-items:center;height:48px;padding:0 18px;border:1px solid var(--line-2);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.foot{padding:40px 0 96px;font-size:14px;color:var(--tx-3)}
+.foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);padding-top:32px}
+.foot img{width:130px}
+
+@media (max-width:1199px){
+  :root{--pad:32px;--sec:96px}
+  .hdr nav,.hdr .btn{display:none}.burger{display:block}
+  .head,.sys,.b-grid,.uses,.mk,.faq,.cta,.hero-row{grid-template-columns:1fr}
+  .who{grid-template-columns:1fr 1fr}
+  .track{position:relative;top:0}
+  .c,.c.big{grid-column:span 6}.c.big{grid-row:auto}.c.big .im{aspect-ratio:4/3;min-height:0}
+  .room{grid-template-columns:1fr}
+  .st{grid-template-columns:1fr 1fr}
+  .hstats{grid-template-columns:1fr 1fr}
+  .hstats div:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:767px){
+  :root{--pad:16px;--sec:72px}
+  body{font-size:16px}
+  .lead{font-size:17px}
+  h2{font-size:clamp(38px,11vw,52px)}
+  .hdr .wrap{height:64px}.hdr .logo img{width:118px}
+  .hero .wrap{padding-top:100px;padding-bottom:28px}
+  .hero h1{font-size:clamp(58px,19vw,84px)}
+  .hero .sub{font-size:17px}
+  .hero .ctas{flex-direction:column}.hero .ctas .btn{width:100%}
+  .hstats{margin-top:32px}
+  .hstats div{padding:14px 10px 14px 0}
+  .hstats div+div{padding-left:10px}
+  .hstats div:nth-child(3){padding-left:0}
+  .hstats b{font-size:34px}
+  .hstats span{font-size:12px}
+  .head{margin-bottom:36px;gap:14px}
+  .who{grid-template-columns:1fr}
+  .who-c{padding:24px 20px}
+  .who-c .n{font-size:44px;margin-bottom:14px}
+  .obs{grid-template-columns:1fr}
+  .track{padding:22px}
+  .track .big{font-size:68px}
+  .uses-ph{min-height:300px}
+  .uses-list>div{padding:18px}
+  .c,.c.big{grid-column:1/-1}
+  .c.big h3{font-size:32px}
+  .rm{padding:26px 20px}.rm b{font-size:56px}
+  .mk-ph figure:first-child{min-height:300px}
+  .st{grid-template-columns:1fr}
+  .qa summary{font-size:19px}
+  .qa .a p{padding:0 0 20px;font-size:16px}
+  form.lf{padding:20px;grid-template-columns:1fr}
+  .f.h{grid-column:span 2}
+  .gaps-toggle{left:auto;right:12px;bottom:12px;height:36px;font-size:12px}
+  .btn{height:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  [data-r],.hero [data-in],.hero h1 .ln>span{opacity:1!important;transform:none!important}
+  .rig .fr{stroke-dashoffset:0!important}.rig .ob,.rig .mat{opacity:1!important;transform:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body class="at-top">
+<div class="progress" id="progress"></div>
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo"><img src="assets/img/logo-white.svg" alt="UNITRAMP"></a>
+    <nav aria-label="Разделы"><a href="#system">Система</a><a href="#builder">Трасса</a><a href="#cases">Парки</a><a href="#room">Помещение</a><a href="#faq">Вопросы</a></nav>
+    <a href="#form" class="btn btn-r">Получить проект</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mmenu" id="mmenu"><a href="#who">Для кого</a><a href="#system">Система</a><a href="#builder">Собрать трассу</a><a href="#cases">Парки</a><a href="#room">Помещение</a><a href="#faq">Вопросы</a><a href="#form" class="btn btn-r">Получить проект</a></div>
+
+<main id="top">
+<!-- 1 HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="assets/img/n-hero.jpg" alt="Ниндзя-парк «Армирум», Омск" fetchpriority="high"></div>
+  <div class="wrap">
+    <div class="kick" data-in><b>OCR</b>Полосы препятствий для детей и взрослых</div>
+    <h1><span class="ln"><span>Ниндзя-парк</span></span><span class="ln"><span>под ключ</span></span></h1>
+    <div class="hero-row">
+      <p class="sub" data-in>Проектируем трассу под ваш зал, производим рамы и препятствия на своём заводе, монтируем и запускаем. Формат из шоу «Русский ниндзя» для семейных центров, фитнес-клубов и спортивных залов.</p>
+      <div class="ctas" data-in><a href="#builder" class="btn btn-r">Собрать трассу <svg class="arr" viewBox="0 0 18 18" fill="none"><path d="M3 9h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg></a><a href="#cases" class="btn btn-o">Наши парки</a></div>
+    </div>
+    <div class="hstats" data-in>
+      <div><b data-count="7">7</b><span>ниндзя-парков и OCR-залов в портфолио</span></div>
+      <div><b>70<i>–</i>880</b><span>м² площадь наших трасс</span></div>
+      <div><b>40<i>–</i>55</b><span>рабочих дней от договора до открытия</span></div>
+      <div><b>с 2014</b><span>производим оборудование в Новосибирске</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 WHO -->
+<section class="sec" id="who">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kick" data-r><b>01</b>Для кого</div><h2 data-r>Трасса под ваш формат</h2></div>
+      <p class="lead" data-r>Ниндзя-трасса работает и как отдельный бизнес, и как зона, ради которой едут в ваш центр. Особенно в городе, где такой ещё нет.</p>
+    </div>
+    <div class="who">
+      <div class="who-c" data-r><div class="n">01</div><h3>Семейный центр</h3><p>Ниндзя-зона для детей 9–14 лет рядом с лабиринтом и батутами. Добавляет то, чего нет у соседей.</p><span class="ex">Пример: «Притяжение», Магнитогорск</span></div>
+      <div class="who-c" data-r style="transition-delay:.05s"><div class="n">02</div><h3>Фитнес и кроссфит</h3><p>Групповые и индивидуальные тренировки на полосе препятствий. Новое направление для действующего клуба.</p><span class="ex">Пример: Multiskill, Йошкар-Ола</span></div>
+      <div class="who-c" data-r style="transition-delay:.1s"><div class="n">03</div><h3>Зал OCR</h3><p>Подготовка к «Гонке героев» и соревнованиям по прохождению полос препятствий. Трассы для новичков и профи.</p><span class="ex">Пример: «Армирум», Омск</span></div>
+      <div class="who-c" data-r style="transition-delay:.15s"><div class="n">04</div><h3>Город и спорт</h3><p>Муниципальные центры досуга, спорткомплексы, площадки при скейт-парках.</p><span class="ex">Пример: центр досуга «Сибирь», Тулун</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 SYSTEM -->
+<section class="sec" id="system" style="padding-top:0">
+  <div class="wrap sys">
+    <div>
+      <div class="kick" data-r><b>02</b>Как устроено</div>
+      <h2 data-r style="margin-top:20px">Модульная система, а не разовая конструкция</h2>
+      <div class="sys-list">
+        <div data-r><b>01</b><div><h4>Металлический каркас</h4><p>Модульные рамы собираются под ваш зал. Трассу можно расширить, не меняя каркас.</p></div></div>
+        <div data-r><b>02</b><div><h4>Сменные препятствия</h4><p>Комбинируете препятствия и меняете сложность трассы, чтобы гостям было интересно возвращаться.</p></div></div>
+        <div data-r><b>03</b><div><h4>Безопасность</h4><p>Металл обшит мягким материалом, под трассой страховочные маты или поролоновые кубики.</p></div></div>
+        <div data-r><b>04</b><div><h4>Фиксация времени</h4><p>Электронная система старт и финиш для турниров и рейтингов, как в Hero Club и Extreme Fit.</p></div></div>
+      </div>
+    </div>
+    <div class="rig" id="rig" data-r>
+      <svg viewBox="0 0 600 480" aria-hidden="true">
+        <rect class="mat" x="40" y="400" width="520" height="34"/>
+        <path class="fr" d="M60 400V90H540V400M60 90L180 90M180 90V400M300 90V400M420 90V400M60 150H540"/>
+        <g class="ob" style="transition-delay:.9s"><line x1="100" y1="150" x2="100" y2="215" stroke="#fff" stroke-width="2"/><line x1="140" y1="150" x2="140" y2="215" stroke="#fff" stroke-width="2"/><circle cx="100" cy="225" r="11" fill="none" stroke="#E5262B" stroke-width="5"/><circle cx="140" cy="225" r="11" fill="none" stroke="#E5262B" stroke-width="5"/></g>
+        <g class="ob" style="transition-delay:1.05s"><rect x="205" y="160" width="70" height="90" fill="none" stroke="#E5262B" stroke-width="4"/><g fill="#E5262B"><circle cx="222" cy="178" r="4"/><circle cx="240" cy="178" r="4"/><circle cx="258" cy="178" r="4"/><circle cx="222" cy="198" r="4"/><circle cx="240" cy="198" r="4"/><circle cx="258" cy="198" r="4"/><circle cx="222" cy="218" r="4"/><circle cx="240" cy="218" r="4"/><circle cx="258" cy="218" r="4"/><circle cx="222" cy="238" r="4"/><circle cx="258" cy="238" r="4"/></g></g>
+        <g class="ob" style="transition-delay:1.2s"><line x1="320" y1="150" x2="400" y2="150" stroke="#fff" stroke-width="2"/><rect x="330" y="160" width="60" height="10" fill="#E5262B"/><line x1="340" y1="150" x2="340" y2="160" stroke="#fff" stroke-width="2"/><line x1="380" y1="150" x2="380" y2="160" stroke="#fff" stroke-width="2"/></g>
+        <g class="ob" style="transition-delay:1.35s"><path d="M440 400 L520 300 L520 400 Z" fill="none" stroke="#E5262B" stroke-width="4"/></g>
+        <g class="ob" style="transition-delay:1.5s"><path d="M80 400 q20 -40 40 0 q20 -40 40 0" fill="none" stroke="#fff" stroke-width="3"/></g>
+        <text class="lbl" x="120" y="275" text-anchor="middle">Кольца</text>
+        <text class="lbl" x="240" y="275" text-anchor="middle">Пегборд</text>
+        <text class="lbl" x="360" y="195" text-anchor="middle">Перекладина</text>
+        <text class="lbl" x="480" y="290" text-anchor="middle">Рампа</text>
+        <text class="lbl" x="300" y="455" text-anchor="middle">Страховочные маты</text>
+      </svg>
+      <span class="cap">Схема модуля</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4 BUILDER -->
+<section class="sec bld" id="builder">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kick" data-r><b>03</b>Конструктор</div><h2 data-r>Соберите свою трассу</h2></div>
+      <p class="lead" data-r>Выберите препятствия, а мы покажем профиль сложности и навыки, которые тренирует трасса. Эту подборку отправим проектировщику вместе с заявкой. <span class="gap">полный каталог препятствий: в производстве более 20 новых позиций</span></p>
+    </div>
+    <div class="b-grid">
+      <div>
+        <div class="filters" id="filters"><button class="on" data-f="all" type="button">Все</button><button data-f="хват" type="button">Хват</button><button data-f="баланс" type="button">Баланс</button><button data-f="лазанье" type="button">Лазанье</button><button data-f="прыжок" type="button">Бег и прыжки</button></div>
+        <div class="obs" id="obs"></div>
+      </div>
+      <aside class="track" data-r>
+        <div class="tl">Ваша трасса</div>
+        <div class="big"><span id="tN">0</span> <small>препятствий</small></div>
+        <div class="prof"><svg viewBox="0 0 300 120" preserveAspectRatio="none" id="profSvg"><defs><linearGradient id="rg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="rgba(229,38,43,.35)"/><stop offset="1" stop-color="rgba(229,38,43,0)"/></linearGradient></defs><path class="area" id="pa" d="M0 120 L300 120 Z"/><path id="pl" d="M0 120 L300 120"/></svg></div>
+        <div class="prof-l"><span>Старт</span><span>Профиль сложности</span><span>Финиш</span></div>
+        <div class="seq" id="seq"></div>
+        <div class="skills" id="skills"></div>
+        <div class="lvl"><span style="color:var(--tx-2)">Уровень трассы</span><b id="tL">—</b></div>
+        <label class="timer"><input type="checkbox" id="tTimer"><span class="sw"></span>Электронная фиксация времени</label>
+        <a href="#form" class="btn btn-r">Отправить трассу на расчёт</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 5 USES -->
+<section class="sec" id="uses">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kick" data-r><b>04</b>Как работает парк</div><h2 data-r>Одна трасса, пять поводов прийти</h2></div>
+      <p class="lead" data-r>Ниндзя-парк проходят ради интереса и устраивают полноценные соревнования на скорость. Поэтому у зала несколько сценариев загрузки.</p>
+    </div>
+    <div class="uses">
+      <div class="uses-ph" data-r><img src="assets/img/n-use.jpg" alt="Гости на ниндзя-трассе Hero Club" loading="lazy"><span>Hero Club, Сергиев Посад</span></div>
+      <div class="uses-list" data-r>
+        <div><div><h4>Свободное прохождение</h4><p>Гости покупают время и проходят трассу в своём темпе.</p></div><em>Все возрасты</em></div>
+        <div><div><h4>Тренировки и абонементы</h4><p>Групповые и индивидуальные занятия с тренером.</p></div><em>Регулярно</em></div>
+        <div><div><h4>Соревнования на время</h4><p>Турниры и рейтинги с электронной фиксацией результата.</p></div><em>События</em></div>
+        <div><div><h4>Дни рождения и группы</h4><p>Командные испытания для детей и корпоративов.</p></div><em>Выходные</em></div>
+        <div><div><h4>Подготовка к стартам</h4><p>«Гонка героев», Bison Race, «Русский ниндзя».</p></div><em>Спорт</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 CASES -->
+<section class="sec" id="cases" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kick" data-r><b>05</b>Парки</div><h2 data-r>Трассы, которые уже работают</h2></div>
+      <p class="lead" data-r>От 70 м² в фитнес-клубе до 880 м² в отдельном зале. Данные со страниц проектов на unitramp.ru.</p>
+    </div>
+    <div class="cs" id="cs"></div>
+  </div>
+</section>
+
+<!-- 7 ROOM -->
+<section class="sec" id="room" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kick" data-r><b>06</b>Помещение</div><h2 data-r>Сколько места нужно</h2></div>
+      <p class="lead" data-r>Трасса подстраивается под зал: Extreme Fit уместил 9 препятствий и комплект из 4 сменных на 126 м².</p>
+    </div>
+    <div class="room">
+      <div class="rm" data-r><b>30 <small>м²</small></b><h4>Ниндзя-зона</h4><p>Минимальная площадь зоны внутри семейного центра.</p></div>
+      <div class="rm" data-r style="transition-delay:.05s"><b>200 <small>м²</small></b><h4>Отдельный парк</h4><p>Помещение для самостоятельного ниндзя-парка.</p></div>
+      <div class="rm" data-r style="transition-delay:.1s"><b>4,5 <small>м</small></b><h4>Высота и пол</h4><p>Потолки от 4,5 м, нагрузка на пол до 300 кг на м². Делаем контрольный замер.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 MAKE -->
+<section class="sec" id="make" style="background:var(--bg-2)">
+  <div class="wrap mk">
+    <div class="mk-ph">
+      <figure data-r><img src="assets/img/c-armirum-2.jpg" alt="Рамы и препятствия «Армирум»" loading="lazy"><figcaption>«Армирум», Омск</figcaption></figure>
+      <figure data-r style="transition-delay:.05s"><img src="assets/img/pr-mount.jpg" alt="Монтаж каркаса" loading="lazy"><figcaption>Монтаж каркаса</figcaption></figure>
+      <figure data-r style="transition-delay:.1s"><img src="assets/img/n-hc-2.jpg" alt="Дети на скалодроме Hero Club" loading="lazy"><figcaption>Hero Club, Сергиев Посад</figcaption></figure>
+    </div>
+    <div>
+      <div class="kick" data-r><b>07</b>Производство</div>
+      <h2 data-r style="margin-top:20px">Свои рамы, свои препятствия</h2>
+      <p class="lead" data-r style="margin-top:20px">Дешёвая трасса обходится дорого, когда её нельзя расширить или она не выдерживает нагрузку зала. Мы делаем оборудование для коммерческой эксплуатации.</p>
+      <div class="mk-list" data-r>
+        <div><span><b>Своё производство в Новосибирске.</b> Рамы и препятствия делаем сами, без посредников.</span></div>
+        <div><span><b>Инженерия.</b> Новые препятствия оцифровываем и ставим на производство. <span class="gap ok">сроки новой линейки</span></span></div>
+        <div><span><b>Запуск с мастер-классами.</b> После монтажа Extreme Fit провели мастер-классы на объекте.</span></div>
+        <div><span><b>Гарантия 12 месяцев</b>, сертификаты ТР ЕАЭС 038 и ГОСТ 33807.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 STEPS -->
+<section class="sec" id="steps">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kick" data-r><b>08</b>Этапы</div><h2 data-r>От зала до старта</h2></div>
+      <p class="lead" data-r>От договора до открытия обычно 40–55 рабочих дней.</p>
+    </div>
+    <div class="st">
+      <div class="s" data-r><div class="n">ЭТАП 01</div><h4>Проект и 3D</h4><p>Трасса под ваш зал, аудиторию и уровень подготовки гостей.</p></div>
+      <div class="s" data-r style="transition-delay:.05s"><div class="n">ЭТАП 02</div><h4>Производство</h4><p>Рамы и препятствия на нашем заводе.</p><span class="t">Extreme Fit: 25 раб. дней</span></div>
+      <div class="s" data-r style="transition-delay:.1s"><div class="n">ЭТАП 03</div><h4>Монтаж</h4><p>Своя бригада собирает каркас и препятствия.</p><span class="t">Hero Club: 21 раб. день</span></div>
+      <div class="s" data-r style="transition-delay:.15s"><div class="n">ЭТАП 04</div><h4>Старт</h4><p>Документы, обучение инструкторов, мастер-классы.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 FAQ -->
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap faq">
+    <div><div class="kick" data-r><b>09</b>Вопросы</div><h2 data-r style="margin-top:20px">Коротко о главном</h2></div>
+    <div data-r>
+      <details class="qa"><summary>Сколько стоит ниндзя-парк?<i class="pm"></i></summary><div class="a"><p>Зависит от площади, числа препятствий и уровня трассы. Соберите трассу в конструкторе, и мы пришлём расчёт. <span class="gap">ориентир стоимости за м² или за модуль</span></p></div></details>
+      <details class="qa"><summary>Для какого возраста?<i class="pm"></i></summary><div class="a"><p>Основная аудитория ниндзя-зоны в семейном центре 9–14 лет. Отдельные трассы для взрослых и спортсменов собираем из препятствий другой сложности.</p></div></details>
+      <details class="qa"><summary>Можно ли потом расширить трассу?<i class="pm"></i></summary><div class="a"><p>Да. Каркас модульный: добавляем секции и меняем препятствия, чтобы обновлять трассу для постоянных гостей.</p></div></details>
+      <details class="qa"><summary>Насколько это безопасно?<i class="pm"></i></summary><div class="a"><p>Металл обшит мягким материалом, каждое препятствие разработано с учётом безопасности, под трассой маты или поролоновые кубики. Оборудование сертифицировано.</p></div></details>
+      <details class="qa"><summary>Чем вы отличаетесь от дешёвых трасс?<i class="pm"></i></summary><div class="a"><p>Своим производством рам и препятствий, расчётом на коммерческую нагрузку и возможностью расширения. Дешёвая трасса без этого быстро теряет гостей.</p></div></details>
+      <details class="qa"><summary>Сколько людей одновременно?<i class="pm"></i></summary><div class="a"><p><span class="gap">вместимость на 100 м² трассы</span></p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 11 FORM -->
+<section class="sec" id="form" style="padding-top:0">
+  <div class="wrap cta">
+    <div>
+      <div class="kick" data-r><b>10</b>Старт</div>
+      <h2 data-r style="margin-top:20px">Получите проект трассы</h2>
+      <p class="lead" data-r style="margin-top:20px">Пришлите площадь и формат. Подготовим 3D-проект трассы под ваш зал и расчёт.</p>
+      <div class="contacts" data-r><a href="tel:88007007809">8 800 700-78-09</a><a href="https://wa.me/79607901070" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+    <form class="lf onl" id="lf" novalidate data-r>
+      <div class="f h"><label for="f-fmt">Формат</label><select id="f-fmt"><option>Зона в семейном центре</option><option>Отдельный ниндзя-парк</option><option>Фитнес или кроссфит</option><option>Зал OCR</option><option>Муниципальный центр</option></select></div>
+      <div class="f h"><label for="f-area">Площадь, м²</label><input id="f-area" inputmode="numeric" placeholder="200"></div>
+      <div class="f h"><label for="f-city">Город</label><input id="f-city" placeholder="Например, Пермь"></div>
+      <div class="f h"><label for="f-tel">Телефон</label><input id="f-tel" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__"></div>
+      <div class="picked" id="picked"></div>
+      <button class="btn btn-r" type="submit">Получить проект <svg class="arr" viewBox="0 0 18 18" fill="none"><path d="M3 9h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg></button>
+      <p class="fine">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+      <div class="sent"><div class="ok"><svg width="26" height="26" viewBox="0 0 16 16"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="2"/></svg></div><h3>Заявка принята</h3><p style="font-size:14px;color:#555">Это прототип: форма ничего не отправляет. На рабочем сайте заявка уйдёт в CRM вместе с собранной трассой.</p><button type="button" id="again" style="background:none;border:0;border-bottom:1.5px solid;font-weight:600;cursor:pointer">Заполнить снова</button></div>
+    </form>
+  </div>
+</section>
+</main>
+<footer class="foot"><div class="wrap"><img src="assets/img/logo-white.svg" alt="UNITRAMP"><span>Прототип сайта ниндзя-парков · версия 1 от 15.10.2026</span></div></footer>
+<button class="gaps-toggle" id="gapsToggle" type="button">Пробелы в данных <b id="gapsN">0</b></button>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches,D=document;
+var $=function(s,c){return (c||D).querySelector(s)},$$=function(s,c){return [].slice.call((c||D).querySelectorAll(s))};
+
+/* obstacles: names from unitramp.ru project pages (Hero Club, «Притяжение», Extreme Fit) and planning meeting 23.09 */
+var I={
+ grip:'<path d="M4 6h16M8 6v5M16 6v5" stroke="#fff" stroke-width="2"/><circle cx="8" cy="14" r="3" stroke="#fff" stroke-width="2" fill="none"/><circle cx="16" cy="14" r="3" stroke="#fff" stroke-width="2" fill="none"/>',
+ bal:'<path d="M3 16h18" stroke="#fff" stroke-width="2"/><path d="M12 16V8M8 8h8" stroke="#fff" stroke-width="2"/><circle cx="12" cy="5" r="2" fill="#fff"/>',
+ climb:'<path d="M5 21L12 3l7 18" stroke="#fff" stroke-width="2" fill="none"/><circle cx="10" cy="12" r="1.5" fill="#fff"/><circle cx="14" cy="15" r="1.5" fill="#fff"/><circle cx="12" cy="8" r="1.5" fill="#fff"/>',
+ jump:'<path d="M3 19h6l6-12h6" stroke="#fff" stroke-width="2" fill="none" stroke-linejoin="round"/>'
+};
+var OB=[
+ {n:'Перекидной турник',s:'хват',l:3,i:'grip',d:'Тот самый из «Русского ниндзя»'},
+ {n:'Пегборд',s:'хват',l:3,i:'grip',d:'Подъём на руках по доске с отверстиями'},
+ {n:'Кольца',s:'хват',l:2,i:'grip',d:'Перехват по подвесным кольцам'},
+ {n:'Лестница 360',s:'баланс',l:2,i:'bal',d:'Вращающаяся лестница на координацию'},
+ {n:'Весёлая лестница',s:'баланс',l:1,i:'bal',d:'Подвижные ступени для новичков'},
+ {n:'Балансир',s:'баланс',l:1,i:'bal',d:'Узкая опора на равновесие'},
+ {n:'Отвесная скала',s:'лазанье',l:2,i:'climb',d:'Вертикальная стена на силу и хват'},
+ {n:'Вертикальный лабиринт',s:'лазанье',l:1,i:'climb',d:'Подъём через ярусы с переходами'},
+ {n:'Скалодром с автостраховкой',s:'лазанье',l:2,i:'climb',d:'Без инструктора на страховке'},
+ {n:'Рампа',s:'прыжок',l:2,i:'jump',d:'Разбег и выход на верх стены'},
+ {n:'Трасса для новичков',s:'прыжок',l:1,i:'jump',d:'Простые препятствия для первого прохождения'},
+ {n:'Прыжковые платформы',s:'прыжок',l:2,i:'jump',d:'Серия прыжков между опорами'}
+];
+var picked=[],ob=$('#obs');
+OB.forEach(function(o,k){var b=D.createElement('button');b.type='button';b.className='o';b.dataset.s=o.s;b.dataset.k=k;
+ b.innerHTML='<span class="ic"><svg viewBox="0 0 24 24">'+I[o.i]+'</svg></span><span><h4>'+o.n+'</h4><div class="m">'+o.s.toUpperCase()+' · '+o.d+'</div></span><span style="display:flex;gap:12px;align-items:center"><span class="lv">'+[1,2,3].map(function(x){return '<i class="'+(x<=o.l?'f':'')+'"></i>'}).join('')+'</span><span class="add">+</span></span>';
+ b.addEventListener('click',function(){var at=picked.indexOf(k);if(at>-1){picked.splice(at,1);b.classList.remove('on');$('.add',b).textContent='+'}else{picked.push(k);b.classList.add('on');$('.add',b).textContent='✓'}upd()});
+ ob.appendChild(b)});
+$$('#filters button').forEach(function(f){f.addEventListener('click',function(){$$('#filters button').forEach(function(x){x.classList.toggle('on',x===f)});$$('.o').forEach(function(o){o.classList.toggle('hide',f.dataset.f!=='all'&&o.dataset.s!==f.dataset.f)})})});
+var SK=['хват','баланс','лазанье','прыжок'],SKN={хват:'Хват',баланс:'Баланс',лазанье:'Лазанье',прыжок:'Прыжки'};
+$('#skills').innerHTML=SK.map(function(s){return '<div><span>'+SKN[s]+'</span><span class="bar"><i id="sk-'+s+'"></i></span><span id="skn-'+s+'">0</span></div>'}).join('');
+function upd(){
+ var n=picked.length;$('#tN').textContent=n;
+ $('#seq').innerHTML=picked.map(function(k,i){return '<span><b>'+(i+1)+'</b>'+OB[k].n+'</span>'}).join('');
+ var pts=[[0,110]];picked.forEach(function(k,i){pts.push([(i+1)/(n+1)*300,110-OB[k].l*30])});pts.push([300,110]);
+ var d='M'+pts.map(function(p){return p[0].toFixed(1)+' '+p[1]}).join(' L');$('#pl').setAttribute('d',d);$('#pa').setAttribute('d',d+' L300 120 L0 120 Z');
+ var svg=$('#profSvg');$$('.pt',svg).forEach(function(c){c.remove()});pts.slice(1,-1).forEach(function(p){var c=D.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('class','pt');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',4);svg.appendChild(c)});
+ SK.forEach(function(s){var c=picked.filter(function(k){return OB[k].s===s}).length;$('#sk-'+s).style.width=(n?c/n*100:0)+'%';$('#skn-'+s).textContent=c});
+ var avg=n?picked.reduce(function(a,k){return a+OB[k].l},0)/n:0;
+ $('#tL').textContent=!n?'—':avg<1.6?'Новичок':avg<2.4?'Смешанная':'Профи';
+ var pk=$('#picked');if(n){pk.classList.add('on');pk.textContent='Трасса из конструктора: '+picked.map(function(k){return OB[k].n}).join(' → ')+($('#tTimer').checked?'. С фиксацией времени.':'.')}else pk.classList.remove('on');
+}
+$('#tTimer').addEventListener('change',upd);
+[4,9,0,6,3].forEach(function(k){$$('.o')[k].click()});
+
+/* cases (unitramp.ru project pages) */
+var CS=[
+ {t:'«Армирум»',c:'Омск, 2026',a:880,d:40,tg:'Зал OCR',im:'c-armirum-2.jpg',p:'Один из крупнейших залов OCR и ниндзя-спорта. Трасса для детей и взрослых, монтаж под ключ нашей командой.',big:1},
+ {t:'Ниндзя-парк',c:'Нефтекамск, 2024',a:640,d:50,tg:'Парк активного отдыха',im:'',p:'Заказчик пришёл без помещения и сроков. Концепция: дети развивают физическую форму через игру.'},
+ {t:'«Притяжение»',c:'Магнитогорск, 2025',a:450,d:55,tg:'Проектная визуализация',im:'n-prit.jpg',p:'Семейный центр. Ниндзя-парк «Самурай» 7,5 × 19,2 м, вертикальный лабиринт и отвесная скала.'},
+ {t:'Центр досуга «Сибирь»',c:'Тулун, 2023',a:270,d:45,tg:'Муниципальный',im:'',p:'Трасса для городского центра досуга.'},
+ {t:'Hero Club',c:'Сергиев Посад, 2019',a:160,d:40,tg:'Активити-парк',im:'n-hc.jpg',p:'Перекидной турник, лестница 360, пегборды, скалодромы с автостраховкой, электронная фиксация времени. Монтаж 21 рабочий день.'},
+ {t:'Extreme Fit',c:'Пермь, 2020',a:126,d:48,tg:'Тренировочный',im:'',p:'9 препятствий и 4 сменных на 126 м² при скейт-парке. Производство 25 рабочих дней, мастер-классы на запуске.'},
+ {t:'Multiskill',c:'Йошкар-Ола, 2023',a:70,d:40,tg:'Фитнес',im:'',p:'Трасса в центре физического развития.'}
+];
+var cs=$('#cs');
+CS.forEach(function(o,i){var a=D.createElement('div');a.className='c'+(o.big?' big':'')+(o.im?'':' noimg');a.setAttribute('data-r','');a.style.transitionDelay=(i%3*0.05)+'s';
+ a.innerHTML='<div class="im">'+(o.im?'<img src="assets/img/'+o.im+'" alt="'+o.t+'" loading="lazy">':'')+'<span class="tg">'+o.tg+'</span></div><div class="bd">'+(o.im?'':'<span class="tg" style="position:static;display:inline-block;margin-bottom:16px;background:var(--red);color:#fff;font:700 13px/1 var(--h);letter-spacing:.08em;text-transform:uppercase;padding:8px 14px">'+o.tg+'</span>')+'<h3>'+o.t+'</h3><div class="where">'+o.c+'</div><div class="nums"><div><b>'+o.a+'</b><span>м²</span></div><div><b>'+o.d+'</b><span>раб. дней</span></div></div><p>'+o.p+'</p></div>';cs.appendChild(a)});
+
+/* reveal + counters */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+$$('[data-r]').forEach(function(el){io.observe(el)});
+addEventListener('load',function(){D.body.classList.add('loaded')});setTimeout(function(){D.body.classList.add('loaded')},800);
+setTimeout(function(){$$('[data-count]').forEach(function(el){var to=+el.dataset.count;if(RM)return;var t0=null;(function st(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/800);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(st)})(performance.now())})},900);
+
+/* header */
+var hdr=$('#hdr'),prog=$('#progress'),tk=0;
+function onS(){var y=scrollY,H=D.documentElement.scrollHeight-innerHeight;prog.style.transform='scaleX('+(H>0?y/H:0)+')';hdr.classList.toggle('solid',y>30);D.body.classList.toggle('at-top',y<innerHeight*.6);tk=0}
+addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(onS)}},{passive:true});onS();
+function tm(o){D.body.classList.toggle('menu-open',o);$('#burger').setAttribute('aria-expanded',o?'true':'false')}
+$('#burger').addEventListener('click',function(){tm(!D.body.classList.contains('menu-open'))});
+$$('#mmenu a').forEach(function(a){a.addEventListener('click',function(){tm(false)})});
+D.addEventListener('keydown',function(e){if(e.key==='Escape')tm(false)});
+
+/* faq */
+$$('.qa').forEach(function(d){var s=$('summary',d),a=$('.a',d);s.addEventListener('click',function(e){if(RM)return;e.preventDefault();
+ if(d.open){a.style.height=a.scrollHeight+'px';requestAnimationFrame(function(){a.style.transition='height .35s';a.style.height='0px'});setTimeout(function(){d.open=false;a.style.cssText=''},350)}
+ else{d.open=true;var hh=a.scrollHeight;a.style.height='0px';requestAnimationFrame(function(){a.style.transition='height .4s';a.style.height=hh+'px'});setTimeout(function(){a.style.cssText=''},420)}})});
+
+/* form */
+var tel=$('#f-tel');tel.addEventListener('input',function(){var d=tel.value.replace(/\D/g,'');if(d[0]==='8')d='7'+d.slice(1);if(d&&d[0]!=='7')d='7'+d;d=d.slice(0,11);var r='+7';if(d.length>1)r+=' ('+d.slice(1,4);if(d.length>=4)r+=')';if(d.length>4)r+=' '+d.slice(4,7);if(d.length>7)r+='-'+d.slice(7,9);if(d.length>9)r+='-'+d.slice(9,11);tel.value=d.length?r:''});
+$('#f-area').addEventListener('input',function(e){e.target.value=e.target.value.replace(/\D/g,'').slice(0,5)});
+$('#lf').addEventListener('submit',function(e){e.preventDefault();this.classList.add('done')});
+$('#again').addEventListener('click',function(){$('#lf').classList.remove('done')});
+$('#gapsN').textContent=$$('.gap').length;
+$('#gapsToggle').addEventListener('click',function(){D.body.classList.toggle('clean')});
+})();
+</script>
+</body>
+</html>
