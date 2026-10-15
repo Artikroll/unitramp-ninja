@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#0D0D0F">
 <link rel="icon" href="assets/img/logo.svg">
 <style>
+html{overflow-x:clip}
 @font-face{font-family:"Oswald";src:url(assets/fonts/Oswald.ttf) format("truetype");font-weight:200 700;font-display:swap}
 @font-face{font-family:"Golos";src:url(assets/fonts/GolosText-400.ttf) format("truetype");font-weight:400;font-display:swap}
 @font-face{font-family:"Golos";src:url(assets/fonts/GolosText-500.ttf) format("truetype");font-weight:500;font-display:swap}
@@ -309,7 +310,7 @@ form.done .sent{opacity:1;pointer-events:auto}
   .who-c{padding:24px 20px}
   .who-c .n{font-size:44px;margin-bottom:14px}
   .obs{grid-template-columns:1fr}
-  .track{padding:22px}
+  .track{padding:22px;min-width:0}
   .track .big{font-size:68px}
   .uses-ph{min-height:300px}
   .uses-list>div{padding:18px}
@@ -419,7 +420,7 @@ form.done .sent{opacity:1;pointer-events:auto}
   <div class="wrap">
     <div class="head">
       <div><div class="kick" data-r><b>03</b>Конструктор</div><h2 data-r>Соберите свою трассу</h2></div>
-      <p class="lead" data-r>Выберите препятствия, а мы покажем профиль сложности и навыки, которые тренирует трасса. Эту подборку отправим проектировщику вместе с заявкой. <span class="gap">полный каталог препятствий: в производстве более 20 новых позиций</span></p>
+      <p class="lead" data-r>Выберите препятствия, а мы покажем профиль сложности и навыки, которые тренирует трасса. Эту подборку отправим проектировщику вместе с заявкой.</p>
     </div>
     <div class="b-grid">
       <div>
@@ -501,7 +502,7 @@ form.done .sent{opacity:1;pointer-events:auto}
       <p class="lead" data-r style="margin-top:20px">Дешёвая трасса обходится дорого, когда её нельзя расширить или она не выдерживает нагрузку зала. Мы делаем оборудование для коммерческой эксплуатации.</p>
       <div class="mk-list" data-r>
         <div><span><b>Своё производство в Новосибирске.</b> Рамы и препятствия делаем сами, без посредников.</span></div>
-        <div><span><b>Инженерия.</b> Новые препятствия оцифровываем и ставим на производство. <span class="gap ok">сроки новой линейки</span></span></div>
+        <div><span><b>Инженерия.</b> Новые препятствия оцифровываем и ставим на производство.</span></div>
         <div><span><b>Запуск с мастер-классами.</b> После монтажа Extreme Fit провели мастер-классы на объекте.</span></div>
         <div><span><b>Гарантия 12 месяцев</b>, сертификаты ТР ЕАЭС 038 и ГОСТ 33807.</span></div>
       </div>
@@ -535,7 +536,6 @@ form.done .sent{opacity:1;pointer-events:auto}
       <details class="qa"><summary>Можно ли потом расширить трассу?<i class="pm"></i></summary><div class="a"><p>Да. Каркас модульный: добавляем секции и меняем препятствия, чтобы обновлять трассу для постоянных гостей.</p></div></details>
       <details class="qa"><summary>Насколько это безопасно?<i class="pm"></i></summary><div class="a"><p>Металл обшит мягким материалом, каждое препятствие разработано с учётом безопасности, под трассой маты или поролоновые кубики. Оборудование сертифицировано.</p></div></details>
       <details class="qa"><summary>Чем вы отличаетесь от дешёвых трасс?<i class="pm"></i></summary><div class="a"><p>Своим производством рам и препятствий, расчётом на коммерческую нагрузку и возможностью расширения. Дешёвая трасса без этого быстро теряет гостей.</p></div></details>
-      <details class="qa"><summary>Сколько людей одновременно?<i class="pm"></i></summary><div class="a"><p><span class="gap">вместимость на 100 м² трассы</span></p></div></details>
     </div>
   </div>
 </section>
